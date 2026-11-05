@@ -1,0 +1,6 @@
+{
+  "name": "Shubham Gold Company",
+  "description": "Premium jewellery and gold-buying website with instant valuation, live rates, German XRF testing, and pledged gold release.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
