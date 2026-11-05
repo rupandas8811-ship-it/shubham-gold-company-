@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Phone, Clock, MapPin, MessageCircle, Youtube, Instagram, Facebook, Linkedin } from 'lucide-react';
+import { Phone, Clock, MapPin, MessageCircle, Instagram, Facebook } from 'lucide-react';
 import { CompanyConfig, OFFICIAL_MAPS_URL } from '../data/config';
 
 interface TopBarProps {
@@ -70,52 +70,63 @@ export const TopBar: React.FC<TopBarProps> = ({ config }) => {
 
           <span className="text-gray-300 hidden sm:inline" aria-hidden="true">|</span>
 
-          {/* Social media icons: small, neatly centered, compact spacing on mobile */}
-          <div className="flex items-center justify-center gap-2 sm:gap-3 text-gray-600">
-            <a
-              href={config.socials.youtube}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="YouTube"
-              className="hover:text-[#B5121B] transition-colors p-0.5"
-            >
-              <Youtube className="w-2.5 h-2.5 min-[360px]:w-3 min-[360px]:h-3 sm:w-3.5 sm:h-3.5" />
-            </a>
+          {/* Social media icons: Instagram, Facebook, Google My Business (Google Business Profile) */}
+          <div className="flex items-center justify-center gap-2.5 sm:gap-3 text-gray-600">
+            {/* 1. Instagram */}
             <a
               href={config.socials.instagram}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="hover:text-[#B5121B] transition-colors p-0.5"
+              title="Follow Shubham Gold Company on Instagram"
+              className="hover:text-[#E1306C] text-gray-600 transition-colors p-0.5 flex items-center justify-center"
             >
               <Instagram className="w-2.5 h-2.5 min-[360px]:w-3 min-[360px]:h-3 sm:w-3.5 sm:h-3.5" />
             </a>
+
+            {/* 2. Facebook */}
             <a
               href={config.socials.facebook}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="hover:text-[#B5121B] transition-colors p-0.5"
+              title="Like Shubham Gold Company on Facebook"
+              className="hover:text-[#1877F2] text-gray-600 transition-colors p-0.5 flex items-center justify-center"
             >
               <Facebook className="w-2.5 h-2.5 min-[360px]:w-3 min-[360px]:h-3 sm:w-3.5 sm:h-3.5" />
             </a>
+
+            {/* 3. Google My Business (Google Business Profile) */}
             <a
-              href={config.socials.twitter}
+              href={config.socials.googleBusiness || config.googleMapsUrl || OFFICIAL_MAPS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Twitter / X"
-              className="hover:text-[#B5121B] transition-colors text-[9px] min-[360px]:text-[10px] sm:text-[11px] font-bold p-0.5"
+              aria-label="Google My Business"
+              title="Visit Shubham Gold Company on Google Business Profile"
+              className="p-0.5 flex items-center justify-center transition-opacity hover:opacity-80"
             >
-              𝕏
-            </a>
-            <a
-              href={config.socials.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="hover:text-[#B5121B] transition-colors p-0.5"
-            >
-              <Linkedin className="w-2.5 h-2.5 min-[360px]:w-3 min-[360px]:h-3 sm:w-3.5 sm:h-3.5" />
+              <svg
+                className="w-2.5 h-2.5 min-[360px]:w-3 min-[360px]:h-3 sm:w-3.5 sm:h-3.5 shrink-0"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                  fill="#EA4335"
+                />
+              </svg>
             </a>
           </div>
         </div>

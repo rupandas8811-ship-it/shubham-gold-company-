@@ -57,11 +57,12 @@ export interface CompanyConfig {
   timingsSunday: string;
   googleMapsUrl: string;
   socials: {
-    youtube: string;
     instagram: string;
     facebook: string;
-    twitter: string;
-    linkedin: string;
+    googleBusiness: string;
+    youtube?: string;
+    twitter?: string;
+    linkedin?: string;
   };
   stats: {
     yearsOfExperience: string;
@@ -101,9 +102,10 @@ export const DEFAULT_CONFIG: CompanyConfig = {
   timingsSunday: "Sunday: 10:00 AM to 4:00 PM",
   googleMapsUrl: OFFICIAL_MAPS_URL,
   socials: {
-    youtube: "https://youtube.com/@shubhamgoldcompany",
     instagram: "https://instagram.com/shubhamgoldcompany",
     facebook: "https://facebook.com/shubhamgoldcompany",
+    googleBusiness: OFFICIAL_MAPS_URL,
+    youtube: "https://youtube.com/@shubhamgoldcompany",
     twitter: "https://x.com/shubhamgoldco",
     linkedin: "https://linkedin.com/company/shubham-gold-company"
   },
@@ -247,7 +249,15 @@ export function getCompanyConfig(): CompanyConfig {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
-      return { ...DEFAULT_CONFIG, ...JSON.parse(saved) };
+      const parsed = JSON.parse(saved);
+      return {
+        ...DEFAULT_CONFIG,
+        ...parsed,
+        socials: {
+          ...DEFAULT_CONFIG.socials,
+          ...(parsed?.socials || {})
+        }
+      };
     }
   } catch (e) {
     console.error('Failed to load company config:', e);
