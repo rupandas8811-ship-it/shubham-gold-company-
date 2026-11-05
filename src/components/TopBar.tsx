@@ -13,21 +13,21 @@ interface TopBarProps {
 
 export const TopBar: React.FC<TopBarProps> = ({ config }) => {
   return (
-    <div className="bg-[#FAF7F0] text-[#252525] py-1 sm:py-1.5 md:py-2 px-2.5 min-[375px]:px-3.5 sm:px-6 border-b border-[#E8CE83]/40">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-1 md:gap-2">
+    <div className="bg-[#FAF7F0] text-[#252525] py-1.5 sm:py-2 px-3 sm:px-6 border-b border-[#E8CE83]/40 w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-1.5 md:gap-2 w-full">
         
-        {/* Contact details: Compact, properly aligned, smaller text and icons on mobile */}
-        <div className="flex items-center justify-center md:justify-start gap-x-2.5 min-[360px]:gap-x-3 sm:gap-x-4 text-[10px] min-[360px]:text-[11px] sm:text-xs text-gray-700 whitespace-nowrap">
+        {/* Contact details: Strictly ONE single horizontal line on all screens, centered on mobile */}
+        <div className="w-full md:w-auto flex items-center justify-center md:justify-start gap-x-1.5 min-[360px]:gap-x-2.5 sm:gap-x-4 text-[9px] min-[340px]:text-[10px] min-[375px]:text-[11px] sm:text-xs text-gray-700 whitespace-nowrap overflow-hidden">
           {/* Phone call link */}
           <a
             href={`tel:${config.phone}`}
-            className="flex items-center gap-1 sm:gap-1.5 hover:text-[#B5121B] font-semibold transition-colors shrink-0"
+            className="inline-flex items-center gap-1 hover:text-[#B5121B] font-semibold transition-colors shrink-0"
           >
-            <Phone className="w-2.5 h-2.5 min-[360px]:w-3 min-[360px]:h-3 sm:w-3.5 sm:h-3.5 text-[#B5121B] shrink-0" />
+            <Phone className="w-2.5 h-2.5 min-[375px]:w-3 min-[375px]:h-3 sm:w-3.5 sm:h-3.5 text-[#B5121B] shrink-0" />
             <span>{config.displayPhone}</span>
           </a>
 
-          <span className="text-gray-300 select-none" aria-hidden="true">·</span>
+          <span className="text-gray-300 select-none px-0.5" aria-hidden="true">·</span>
 
           {/* WhatsApp link */}
           <a
@@ -36,12 +36,12 @@ export const TopBar: React.FC<TopBarProps> = ({ config }) => {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 sm:gap-1.5 hover:text-emerald-700 font-semibold transition-colors text-emerald-800 shrink-0"
+            className="inline-flex items-center gap-1 hover:text-emerald-700 font-semibold transition-colors text-emerald-800 shrink-0"
           >
-            <MessageCircle className="w-2.5 h-2.5 min-[360px]:w-3 min-[360px]:h-3 sm:w-3.5 sm:h-3.5 text-emerald-600 shrink-0" />
+            <MessageCircle className="w-2.5 h-2.5 min-[375px]:w-3 min-[375px]:h-3 sm:w-3.5 sm:h-3.5 text-emerald-600 shrink-0" />
             <span>
-              <span className="hidden min-[380px]:inline">WhatsApp: </span>
-              <span className="min-[380px]:hidden">WA: </span>
+              <span className="hidden min-[420px]:inline">WhatsApp: </span>
+              <span className="hidden min-[360px]:inline min-[420px]:hidden">WA: </span>
               {config.displayPhone}
             </span>
           </a>
@@ -56,13 +56,13 @@ export const TopBar: React.FC<TopBarProps> = ({ config }) => {
             className="hidden lg:flex items-center gap-1.5 hover:text-[#B5121B] transition-colors text-gray-600 shrink-0"
             title="Open branch location on Google Maps"
           >
-            <MapPin className="w-3.5 h-3.5 text-[#B5121B] shrink-0" />
+            <MapPin className="w-3.5 h-3.5 text-[#B5121B]" />
             <span>Giri Nagar, Banashankari, Bengaluru</span>
           </a>
         </div>
 
-        {/* Operating Hours & Compact Social Media Icons */}
-        <div className="flex items-center justify-center gap-2.5 sm:gap-4 text-[10px] sm:text-xs">
+        {/* Operating Hours & Social Media Icons */}
+        <div className="flex items-center justify-center gap-2 sm:gap-4 text-[10px] sm:text-xs shrink-0">
           <div className="hidden sm:flex items-center gap-1.5 text-gray-600">
             <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#C99A2E] shrink-0" />
             <span>{config.timingsWeekdays}</span>
@@ -71,7 +71,7 @@ export const TopBar: React.FC<TopBarProps> = ({ config }) => {
           <span className="text-gray-300 hidden sm:inline" aria-hidden="true">|</span>
 
           {/* Social media icons: Instagram, Facebook, Google My Business (Google Business Profile) */}
-          <div className="flex items-center justify-center gap-2.5 sm:gap-3 text-gray-600">
+          <div className="flex items-center justify-center gap-2 sm:gap-3 text-gray-600">
             {/* 1. Instagram */}
             <a
               href={config.socials.instagram}
