@@ -78,9 +78,9 @@ export interface CompanyConfig {
 }
 
 export const OFFICIAL_ADDRESS = "23, 50 Feet Main Rd, Giri Nagar, II Phase, Banashankari 1st Stage, Banashankari, Bengaluru, Karnataka 560085";
-export const OFFICIAL_PHONE = "+91 63614 57297";
-export const OFFICIAL_PHONE_RAW = "+916361457297";
-export const OFFICIAL_WHATSAPP_DIGITS = "916361457297";
+export const OFFICIAL_PHONE = "+91 81055 83388";
+export const OFFICIAL_PHONE_RAW = "+918105583388";
+export const OFFICIAL_WHATSAPP_DIGITS = "918105583388";
 export const OFFICIAL_MAPS_URL = "https://maps.google.com/?q=23,+50+Feet+Main+Rd,+Giri+Nagar,+II+Phase,+Banashankari+1st+Stage,+Banashankari,+Bengaluru,+Karnataka+560085";
 export const OFFICIAL_LOGO_URL = "/assets/aistudio/WhatsApp_Image_2026-11-03_at_1.07.04_PM_c7c1456d.jpeg";
 
@@ -242,7 +242,7 @@ export const DEFAULT_CONFIG: CompanyConfig = {
   ]
 };
 
-const STORAGE_KEY = 'shubham_gold_company_config_v2';
+const STORAGE_KEY = 'shubham_gold_company_config_v3';
 
 export function getCompanyConfig(): CompanyConfig {
   if (typeof window === 'undefined') return DEFAULT_CONFIG;

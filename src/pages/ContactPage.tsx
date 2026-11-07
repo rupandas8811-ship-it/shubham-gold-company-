@@ -30,7 +30,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ config }) => {
     if (metaDesc) {
       metaDesc.setAttribute(
         'content',
-        "Visit Shubham Gold Company in Giri Nagar, Banashankari, Bengaluru. Contact our gold valuation specialists at +91 63614 57297 for transparent German XRF testing and pledged gold releases."
+        "Visit Shubham Gold Company in Giri Nagar, Banashankari, Bengaluru. Contact our gold valuation specialists at +91 81055 83388 for transparent German XRF testing and pledged gold releases."
       );
     }
     window.scrollTo(0, 0);
