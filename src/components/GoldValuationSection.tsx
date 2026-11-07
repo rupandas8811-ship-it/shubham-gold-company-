@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { CheckCircle2, MessageCircle, ArrowRight } from 'lucide-react';
 import { CompanyConfig } from '../data/config';
+import { redirectToWhatsApp, getWhatsAppUrl } from '../utils/whatsapp';
 
 interface GoldValuationSectionProps {
   config: CompanyConfig;
@@ -14,38 +15,30 @@ interface GoldValuationSectionProps {
 
 type CaratOption = '18K' | '20K' | '22K' | '24K';
 
-const SPOT_GOLD_RATES_PER_GRAM: Record<CaratOption, number> = {
-  '24K': 8150,
-  '22K': 7470,
-  '20K': 6790,
-  '18K': 6115,
-};
-
 export const GoldValuationSection: React.FC<GoldValuationSectionProps> = ({
   config,
   onOpenContact
 }) => {
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [fullName, setFullName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [selectedCarat, setSelectedCarat] = useState<CaratOption>('22K');
   const [weightGrams, setWeightGrams] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Per-gram rate based on selected purity
-  const currentRatePerGram = useMemo(() => {
-    return SPOT_GOLD_RATES_PER_GRAM[selectedCarat] || 7470;
-  }, [selectedCarat]);
-
-  // Live estimated payout calculation
-  const estimatedPayout = useMemo(() => {
-    const numGrams = parseFloat(weightGrams);
-    if (isNaN(numGrams) || numGrams <= 0) return 0;
-    return Math.round(numGrams * currentRatePerGram);
-  }, [weightGrams, currentRatePerGram]);
+  const getValuationFields = () => [
+    { label: 'Name', value: fullName.trim() || 'Customer' },
+    { label: 'Mobile', value: phoneNumber },
+    { label: 'Gold Purity', value: selectedCarat },
+    { label: 'Weight', value: `${weightGrams} grams` },
+    { label: 'Showroom Location', value: '23, 50 Feet Main Rd, Giri Nagar, Bengaluru' },
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     const cleanPhone = phoneNumber.replace(/\D/g, '');
     if (!cleanPhone || cleanPhone.length < 10) {
       setErrorMessage('Please enter a valid 10-digit mobile number.');
@@ -57,12 +50,15 @@ export const GoldValuationSection: React.FC<GoldValuationSectionProps> = ({
       return;
     }
     setErrorMessage('');
+    setIsSubmitting(true);
     setIsSubmitted(true);
+
+    const fields = getValuationFields();
+    redirectToWhatsApp(config.whatsappNumber, 'Online Gold Valuation Request', fields);
+    setIsSubmitting(false);
   };
 
-  const whatsappInquiryUrl = `https://wa.me/${config.whatsappNumber}?text=${encodeURIComponent(
-    `Hello Shubham Gold Company! I requested an online gold estimate for ${weightGrams || '10'}g of ${selectedCarat} gold (Estimated value: ₹${estimatedPayout.toLocaleString('en-IN')}). My name is ${fullName || 'Customer'} and phone number is ${phoneNumber}.`
-  )}`;
+  const whatsappInquiryUrl = getWhatsAppUrl(config.whatsappNumber, 'Online Gold Valuation Request', getValuationFields());
 
   return (
     <section id="services" className="py-10 sm:py-16 lg:py-20 px-3 sm:px-6 bg-[#FAF7F0] border-b border-[#E8CE83]/40 w-full overflow-hidden">
@@ -178,6 +174,17 @@ export const GoldValuationSection: React.FC<GoldValuationSectionProps> = ({
 
               {!isSubmitted ? (
                 <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4 w-full">
+                  {/* Full Name Input */}
+                  <div>
+                    <input
+                      type="text"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="Your full name"
+                      className="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 border border-[#E8CE83]/70 rounded-sm sm:rounded-md text-sm text-[#252525] placeholder:text-gray-400 focus:outline-none focus:border-[#B5121B] focus:ring-1 focus:ring-[#B5121B] bg-[#FAF7F0]/30 focus:bg-white transition-colors"
+                    />
+                  </div>
+
                   {/* Phone Input */}
                   <div>
                     <input
@@ -186,17 +193,6 @@ export const GoldValuationSection: React.FC<GoldValuationSectionProps> = ({
                       onChange={(e) => setPhoneNumber(e.target.value)}
                       placeholder="Phone Number *"
                       required
-                      className="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 border border-[#E8CE83]/70 rounded-sm sm:rounded-md text-sm text-[#252525] placeholder:text-gray-400 focus:outline-none focus:border-[#B5121B] focus:ring-1 focus:ring-[#B5121B] bg-[#FAF7F0]/30 focus:bg-white transition-colors"
-                    />
-                  </div>
-
-                  {/* Full Name Input */}
-                  <div>
-                    <input
-                      type="text"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      placeholder="Your full name"
                       className="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 border border-[#E8CE83]/70 rounded-sm sm:rounded-md text-sm text-[#252525] placeholder:text-gray-400 focus:outline-none focus:border-[#B5121B] focus:ring-1 focus:ring-[#B5121B] bg-[#FAF7F0]/30 focus:bg-white transition-colors"
                     />
                   </div>
@@ -232,7 +228,7 @@ export const GoldValuationSection: React.FC<GoldValuationSectionProps> = ({
                     <input
                       type="number"
                       step="0.01"
-                      min="0.1"
+                      min="0.01"
                       value={weightGrams}
                       onChange={(e) => setWeightGrams(e.target.value)}
                       placeholder="Weight (grams) *"
@@ -240,21 +236,6 @@ export const GoldValuationSection: React.FC<GoldValuationSectionProps> = ({
                       className="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 border border-[#E8CE83]/70 rounded-sm sm:rounded-md text-sm text-[#252525] placeholder:text-gray-400 focus:outline-none focus:border-[#B5121B] focus:ring-1 focus:ring-[#B5121B] bg-[#FAF7F0]/30 focus:bg-white transition-colors"
                     />
                   </div>
-
-                  {/* Live Estimation Preview (when weight is entered) */}
-                  {estimatedPayout > 0 && (
-                    <div className="p-3 sm:p-3.5 bg-[#FAF7F0] border border-[#E8CE83] rounded-sm flex items-center justify-between text-xs animate-fadeIn">
-                      <div>
-                        <span className="text-gray-600 block text-[11px]">Estimated Payout ({selectedCarat})</span>
-                        <span className="font-serif font-bold text-base sm:text-lg text-[#B5121B]">
-                          ₹{estimatedPayout.toLocaleString('en-IN')}
-                        </span>
-                      </div>
-                      <span className="text-[10px] min-[360px]:text-[11px] text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded font-medium">
-                        Live Rate: ₹{currentRatePerGram}/g
-                      </span>
-                    </div>
-                  )}
 
                   {errorMessage && (
                     <p className="text-xs text-rose-600 font-semibold">{errorMessage}</p>
@@ -264,33 +245,26 @@ export const GoldValuationSection: React.FC<GoldValuationSectionProps> = ({
                   <div className="pt-1.5 sm:pt-2">
                     <button
                       type="submit"
-                      className="w-full bg-[#B5121B] hover:bg-[#910D15] text-white font-bold text-xs min-[360px]:text-sm uppercase tracking-widest py-3.5 sm:py-4 rounded-sm sm:rounded-md shadow-xs hover:shadow-md transition-all active:translate-y-0.5 animate-btn-shine cursor-pointer"
+                      className="w-full bg-[#B5121B] hover:bg-[#910D15] text-white font-bold text-xs min-[360px]:text-sm uppercase tracking-widest py-3.5 sm:py-4 rounded-sm sm:rounded-md shadow-xs hover:shadow-md transition-all active:translate-y-0.5 animate-btn-shine cursor-pointer flex items-center justify-center gap-2"
                     >
-                      SUBMIT REQUEST
+                      <MessageCircle className="w-4 h-4" />
+                      <span>SUBMIT REQUEST ON WHATSAPP</span>
                     </button>
                   </div>
                 </form>
               ) : (
-                /* Success View */
+                /* Success & Fallback WhatsApp View (No Price) */
                 <div className="py-6 text-center space-y-4 animate-fadeIn">
                   <div className="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-full mx-auto flex items-center justify-center">
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
                   
                   <h4 className="font-serif text-xl sm:text-2xl font-bold text-[#252525]">
-                    Estimate Request Sent!
+                    Request Prepared!
                   </h4>
                   
-                  <div className="bg-[#FAF7F0] border border-[#E8CE83] p-4 rounded-sm">
-                    <span className="text-xs text-gray-600 block mb-0.5">Estimated Valuation ({weightGrams}g of {selectedCarat})</span>
-                    <span className="font-serif text-2xl font-bold text-[#B5121B] block">
-                      ₹{estimatedPayout.toLocaleString('en-IN')}
-                    </span>
-                    <span className="text-[11px] text-gray-500">Based on spot rate of ₹{currentRatePerGram}/gram</span>
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
-                    Thank you, <strong>{fullName || 'Customer'}</strong>. One of our senior gold evaluators will contact you shortly at <strong className="font-mono">{phoneNumber}</strong> to confirm your valuation appointment.
+                  <p className="text-xs sm:text-sm text-gray-700 leading-relaxed max-w-sm mx-auto">
+                    Thank you, <strong>{fullName || 'Customer'}</strong>. Your valuation request for <strong>{weightGrams}g</strong> of <strong>{selectedCarat}</strong> gold has been prepared. Click below to continue on WhatsApp.
                   </p>
 
                   <div className="pt-2 flex flex-col sm:flex-row gap-2.5">
@@ -298,10 +272,10 @@ export const GoldValuationSection: React.FC<GoldValuationSectionProps> = ({
                       href={whatsappInquiryUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs py-3 px-3 rounded-sm flex items-center justify-center gap-1.5 transition-colors"
+                      className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm py-3.5 px-4 rounded-sm flex items-center justify-center gap-2 shadow-xs transition-colors"
                     >
                       <MessageCircle className="w-4 h-4" />
-                      <span>Chat on WhatsApp</span>
+                      <span>Open WhatsApp Chat</span>
                     </a>
                     
                     <button
@@ -310,9 +284,9 @@ export const GoldValuationSection: React.FC<GoldValuationSectionProps> = ({
                         setIsSubmitted(false);
                         setWeightGrams('');
                       }}
-                      className="bg-[#FAF7F0] hover:bg-[#F5EEDC] text-[#252525] border border-[#E8CE83] font-semibold text-xs py-3 px-3 rounded-sm transition-colors"
+                      className="bg-[#FAF7F0] hover:bg-[#F5EEDC] text-[#252525] border border-[#E8CE83] font-semibold text-xs py-3 px-3 rounded-sm transition-colors cursor-pointer"
                     >
-                      New Estimate
+                      New Request
                     </button>
                   </div>
                 </div>

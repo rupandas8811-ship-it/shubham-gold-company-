@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { X, CheckCircle2, ArrowRight, Phone, MessageCircle, MapPin } from 'lucide-react';
 import { CompanyConfig, OFFICIAL_ADDRESS, OFFICIAL_MAPS_URL, OFFICIAL_LOGO_URL } from '../data/config';
+import { redirectToWhatsApp, getWhatsAppUrl } from '../utils/whatsapp';
 
 interface QuoteModalProps {
   isOpen: boolean;
@@ -20,17 +21,35 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, config 
   const [weightRange, setWeightRange] = useState('10 - 50 grams');
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
+  const getQuoteFields = () => [
+    { label: 'Name', value: name || 'Valued Customer' },
+    { label: 'Mobile', value: phone },
+    { label: 'Jewellery Type', value: jewelleryType },
+    { label: 'Estimated Weight', value: weightRange },
+    { label: 'Showroom Location', value: '23, 50 Feet Main Rd, Giri Nagar, Bengaluru' },
+  ];
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phone || phone.replace(/\D/g, '').length < 10) {
+    if (isSubmitting) return;
+
+    const cleanPhone = phone.replace(/\D/g, '');
+    if (!cleanPhone || cleanPhone.length < 10) {
       setErrorMsg('Please enter a valid 10-digit mobile number.');
       return;
     }
+
     setErrorMsg('');
+    setIsSubmitting(true);
     setSubmitted(true);
+
+    const fields = getQuoteFields();
+    redirectToWhatsApp(config.whatsappNumber, 'Gold Evaluation Booking', fields);
+    setIsSubmitting(false);
   };
 
   const handleReset = () => {
@@ -39,9 +58,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, config 
     setPhone('');
   };
 
-  const whatsappUrl = `https://wa.me/${config.whatsappNumber}?text=${encodeURIComponent(
-    `Hello Shubham Gold Company! I would like to schedule an in-person gold evaluation for my ${jewelleryType} at your Giri Nagar branch.`
-  )}`;
+  const modalWhatsAppUrl = getWhatsAppUrl(config.whatsappNumber, 'Gold Evaluation Booking', getQuoteFields());
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
@@ -158,10 +175,11 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, config 
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="w-full bg-[#B5121B] hover:bg-[#910D15] text-white font-semibold text-xs sm:text-sm py-3.5 rounded-sm transition-all shadow-xs cursor-pointer flex items-center justify-center gap-2"
               >
-                <span>Confirm Evaluation Request</span>
-                <ArrowRight className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4" />
+                <span>{isSubmitting ? 'Opening WhatsApp...' : 'Confirm Evaluation Request on WhatsApp'}</span>
               </button>
 
               {/* Immediate Call / WhatsApp alternative */}
@@ -175,7 +193,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, config 
                 </a>
                 <span className="text-gray-300">·</span>
                 <a
-                  href={whatsappUrl}
+                  href={modalWhatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-700 hover:underline flex items-center gap-1"
@@ -191,25 +209,33 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, config 
                 <CheckCircle2 className="w-6 h-6" />
               </div>
               <h4 className="font-serif text-xl font-bold text-[#252525]">
-                Evaluation Appointment Registered
+                Opening WhatsApp...
               </h4>
               <p className="text-xs text-gray-700 max-w-sm mx-auto leading-relaxed">
                 Thank you, <strong>{name || 'Valued Customer'}</strong>. Your evaluation request for{' '}
-                <strong>{jewelleryType}</strong> at our <strong>Giri Nagar, Banashankari</strong> showroom has been reserved. Our senior appraiser will contact you at{' '}
-                <strong className="font-mono">{phone}</strong> shortly.
+                <strong>{jewelleryType}</strong> has been prepared for our Giri Nagar showroom team on WhatsApp.
               </p>
-              <div className="pt-3 flex justify-center gap-4 text-xs font-semibold">
+              <div className="pt-3 flex flex-col sm:flex-row gap-2.5 justify-center">
+                <a
+                  href={modalWhatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm py-2.5 px-4 rounded-sm flex items-center justify-center gap-2 transition-colors shadow-xs"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Continue to WhatsApp</span>
+                </a>
                 <button
                   onClick={handleReset}
-                  className="text-gray-600 hover:text-[#B5121B] underline"
+                  className="text-xs text-gray-600 hover:text-[#B5121B] underline font-semibold py-2"
                 >
                   New Request
                 </button>
                 <button
                   onClick={onClose}
-                  className="bg-[#B5121B] text-white px-4 py-2 rounded-sm"
+                  className="bg-[#FAF7F0] border border-[#E8CE83] text-[#252525] px-4 py-2 rounded-sm text-xs font-semibold"
                 >
-                  Done
+                  Close
                 </button>
               </div>
             </div>

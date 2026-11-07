@@ -139,6 +139,7 @@ export default function App() {
           isOpen={addReviewModalOpen}
           onClose={() => setAddReviewModalOpen(false)}
           onAddReview={handleAddReview}
+          whatsappNumber={config.whatsappNumber}
         />
 
         <LegalModals

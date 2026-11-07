@@ -4,8 +4,9 @@
  */
 
 import React, { useState } from 'react';
-import { ChevronDown, Send, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { ChevronDown, Send, CheckCircle2, ShieldCheck, MessageCircle } from 'lucide-react';
 import { CompanyConfig } from '../data/config';
+import { redirectToWhatsApp, getWhatsAppUrl } from '../utils/whatsapp';
 
 interface FeedbackAndFaqSectionProps {
   config: CompanyConfig;
@@ -54,25 +55,44 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
     }
   ];
 
+  const inquiryLabels: Record<string, string> = {
+    Valuation: 'Sell Physical Gold (We Buy Your Gold)',
+    PledgedGold: 'Release Pledged Gold Loan',
+    FreeValuation: 'Free Gold Valuation',
+    General: 'General Inquiry'
+  };
+
+  const getFeedbackFields = () => [
+    { label: 'Name', value: name },
+    { label: 'Mobile', value: phone },
+    { label: 'Enquiry Type', value: inquiryLabels[inquiryType] || inquiryType },
+    { label: 'Message', value: message || 'General evaluation enquiry' },
+  ];
+
   const handleSubmitInquiry = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     if (!name.trim()) {
       setErrorMsg('Please enter your full name.');
       return;
     }
-    if (!phone.trim() || phone.replace(/\D/g, '').length < 10) {
+    const cleanPhone = phone.replace(/\D/g, '');
+    if (!cleanPhone || cleanPhone.length < 10) {
       setErrorMsg('Please enter a valid 10-digit mobile number.');
       return;
     }
 
     setIsSubmitting(true);
     setErrorMsg('');
+    setSubmitted(true);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-    }, 600);
+    const fields = getFeedbackFields();
+    redirectToWhatsApp(config.whatsappNumber, 'Feedback & Callback Request', fields);
+    setIsSubmitting(false);
   };
+
+  const feedbackWhatsAppUrl = getWhatsAppUrl(config.whatsappNumber, 'Feedback & Callback Request', getFeedbackFields());
 
   return (
     <section id="faqs" className="py-12 sm:py-16 lg:py-24 bg-[#FAF7F0] border-b border-[#E8CE83]/40 w-full overflow-hidden">
@@ -179,8 +199,8 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
                   disabled={isSubmitting}
                   className="w-full bg-[#B5121B] hover:bg-[#910D15] text-white font-semibold text-xs min-[360px]:text-sm py-3.5 rounded-sm transition-all shadow-xs cursor-pointer flex items-center justify-center gap-2 active:translate-y-0.5 animate-btn-shine"
                 >
-                  <span>{isSubmitting ? 'Submitting...' : 'Submit Feedback & Callback'}</span>
-                  <Send className="w-3.5 h-3.5" />
+                  <MessageCircle className="w-4 h-4" />
+                  <span>{isSubmitting ? 'Opening WhatsApp...' : 'Submit Inquiry on WhatsApp'}</span>
                 </button>
 
                 <p className="text-[11px] text-gray-500 text-center">
@@ -193,24 +213,34 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
                 <h4 className="font-serif text-xl font-bold text-[#252525]">
-                  Thank you!
+                  Opening WhatsApp...
                 </h4>
-                <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
-                  Thank you, <strong>{name}</strong>. Our valuation manager will reach out to you on{' '}
-                  <strong className="font-mono">{phone}</strong> shortly.
+                <p className="text-xs sm:text-sm text-gray-700 leading-relaxed max-w-sm mx-auto">
+                  Thank you, <strong>{name}</strong>. Your inquiry has been prepared for our valuation team on WhatsApp.
                 </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSubmitted(false);
-                    setName('');
-                    setPhone('');
-                    setMessage('');
-                  }}
-                  className="text-xs text-[#B5121B] underline font-semibold mt-2 cursor-pointer"
-                >
-                  Submit another inquiry
-                </button>
+                <div className="pt-2 flex flex-col sm:flex-row gap-2.5 justify-center">
+                  <a
+                    href={feedbackWhatsAppUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm py-2.5 px-4 rounded-sm flex items-center justify-center gap-2 transition-colors shadow-xs"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>Continue to WhatsApp</span>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSubmitted(false);
+                      setName('');
+                      setPhone('');
+                      setMessage('');
+                    }}
+                    className="text-xs text-gray-600 hover:text-[#B5121B] underline font-semibold py-2 cursor-pointer"
+                  >
+                    Submit another inquiry
+                  </button>
+                </div>
               </div>
             )}
           </div>

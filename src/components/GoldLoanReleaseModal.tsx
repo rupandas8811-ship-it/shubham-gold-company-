@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { X, Landmark, CheckCircle2, ArrowRight, Phone, MessageCircle } from 'lucide-react';
 import { CompanyConfig, OFFICIAL_ADDRESS, OFFICIAL_LOGO_URL } from '../data/config';
+import { redirectToWhatsApp, getWhatsAppUrl } from '../utils/whatsapp';
 
 interface GoldLoanReleaseModalProps {
   isOpen: boolean;
@@ -24,17 +25,35 @@ export const GoldLoanReleaseModal: React.FC<GoldLoanReleaseModalProps> = ({
   const [pledgedWeight, setPledgedWeight] = useState('35');
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
+  const getLoanFields = () => [
+    { label: 'Name', value: name || 'Valued Customer' },
+    { label: 'Mobile', value: phone },
+    { label: 'Pledged With (Bank/NBFC)', value: lenderName },
+    { label: 'Approximate Weight', value: `${pledgedWeight} grams` },
+    { label: 'Showroom Location', value: '23, 50 Feet Main Rd, Giri Nagar, Bengaluru' },
+  ];
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phone || phone.replace(/\D/g, '').length < 10) {
+    if (isSubmitting) return;
+
+    const cleanPhone = phone.replace(/\D/g, '');
+    if (!cleanPhone || cleanPhone.length < 10) {
       setErrorMsg('Please enter a valid 10-digit mobile number.');
       return;
     }
+
     setErrorMsg('');
+    setIsSubmitting(true);
     setSubmitted(true);
+
+    const fields = getLoanFields();
+    redirectToWhatsApp(config.whatsappNumber, 'Pledged Gold Loan Release', fields);
+    setIsSubmitting(false);
   };
 
   const handleReset = () => {
@@ -44,9 +63,7 @@ export const GoldLoanReleaseModal: React.FC<GoldLoanReleaseModalProps> = ({
     setPledgedWeight('35');
   };
 
-  const whatsappLoanUrl = `https://wa.me/${config.whatsappNumber}?text=${encodeURIComponent(
-    `Hello Shubham Gold Company! I have a pledged gold loan of approx ${pledgedWeight}g at ${lenderName}. I would like assistance releasing it.`
-  )}`;
+  const loanWhatsAppUrl = getWhatsAppUrl(config.whatsappNumber, 'Pledged Gold Loan Release', getLoanFields());
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
@@ -164,10 +181,11 @@ export const GoldLoanReleaseModal: React.FC<GoldLoanReleaseModalProps> = ({
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="w-full bg-[#B5121B] hover:bg-[#910D15] text-white font-semibold text-xs sm:text-sm py-3.5 rounded-sm transition-all shadow-xs cursor-pointer flex items-center justify-center gap-2"
               >
-                <span>Request Loan Clearance Consultation</span>
-                <ArrowRight className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4" />
+                <span>{isSubmitting ? 'Opening WhatsApp...' : 'Request Loan Clearance on WhatsApp'}</span>
               </button>
 
               <div className="pt-2 flex items-center justify-center gap-4 text-xs font-semibold">
@@ -180,7 +198,7 @@ export const GoldLoanReleaseModal: React.FC<GoldLoanReleaseModalProps> = ({
                 </a>
                 <span className="text-gray-300">·</span>
                 <a
-                  href={whatsappLoanUrl}
+                  href={loanWhatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-700 hover:underline flex items-center gap-1"
@@ -196,25 +214,33 @@ export const GoldLoanReleaseModal: React.FC<GoldLoanReleaseModalProps> = ({
                 <CheckCircle2 className="w-6 h-6" />
               </div>
               <h4 className="font-serif text-xl font-bold text-[#252525]">
-                Loan Release Request Dispatched
+                Opening WhatsApp...
               </h4>
               <p className="text-xs text-gray-700 max-w-sm mx-auto leading-relaxed">
-                Thank you, <strong>{name || 'Valued Customer'}</strong>. Our specialized pledged gold redemption manager will contact you at{' '}
-                <strong className="font-mono">{phone}</strong> to coordinate the loan clearance at{' '}
-                <strong>{lenderName}</strong>.
+                Thank you, <strong>{name || 'Valued Customer'}</strong>. Your pledged gold loan redemption request for{' '}
+                <strong>{lenderName}</strong> ({pledgedWeight}g) has been prepared on WhatsApp.
               </p>
-              <div className="pt-3 flex justify-center gap-4 text-xs font-semibold">
+              <div className="pt-3 flex flex-col sm:flex-row gap-2.5 justify-center">
+                <a
+                  href={loanWhatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm py-2.5 px-4 rounded-sm flex items-center justify-center gap-2 transition-colors shadow-xs"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Continue to WhatsApp</span>
+                </a>
                 <button
                   onClick={handleReset}
-                  className="text-gray-600 hover:text-[#B5121B] underline"
+                  className="text-xs text-gray-600 hover:text-[#B5121B] underline font-semibold py-2"
                 >
                   New Request
                 </button>
                 <button
                   onClick={onClose}
-                  className="bg-[#B5121B] text-white px-4 py-2 rounded-sm"
+                  className="bg-[#FAF7F0] border border-[#E8CE83] text-[#252525] px-4 py-2 rounded-sm text-xs font-semibold"
                 >
-                  Done
+                  Close
                 </button>
               </div>
             </div>

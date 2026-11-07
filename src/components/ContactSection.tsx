@@ -19,6 +19,7 @@ import {
   Navigation
 } from 'lucide-react';
 import { CompanyConfig, OFFICIAL_ADDRESS, OFFICIAL_MAPS_URL } from '../data/config';
+import { redirectToWhatsApp, getWhatsAppUrl } from '../utils/whatsapp';
 
 interface ContactSectionProps {
   config: CompanyConfig;
@@ -29,6 +30,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ config }) => {
   const [bookingPhone, setBookingPhone] = useState('');
   const [bookingDate, setBookingDate] = useState('');
   const [isBooked, setIsBooked] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const branch = config.branches[0] || {
     name: 'Shubham Gold Company',
@@ -39,11 +42,37 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ config }) => {
     googleMapUrl: OFFICIAL_MAPS_URL
   };
 
+  const bookingFields = [
+    { label: 'Name', value: bookingName },
+    { label: 'Mobile', value: bookingPhone },
+    { label: 'Preferred Visit Date', value: bookingDate || 'Today (Immediate Walk-in)' },
+    { label: 'Showroom Location', value: '23, 50 Feet Main Rd, Giri Nagar, Bengaluru' },
+  ];
+
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!bookingPhone) return;
+    if (isSubmitting) return;
+
+    if (!bookingName.trim()) {
+      setErrorMessage('Please enter your full name.');
+      return;
+    }
+    const cleanPhone = bookingPhone.replace(/\D/g, '');
+    if (!cleanPhone || cleanPhone.length < 10) {
+      setErrorMessage('Please enter a valid 10-digit mobile number.');
+      return;
+    }
+
+    setErrorMessage('');
+    setIsSubmitting(true);
     setIsBooked(true);
+
+    // Redirect to WhatsApp with formatted message
+    redirectToWhatsApp(config.whatsappNumber, 'Showroom Priority Appointment', bookingFields);
+    setIsSubmitting(false);
   };
+
+  const bookedWhatsAppUrl = getWhatsAppUrl(config.whatsappNumber, 'Showroom Priority Appointment', bookingFields);
 
   const whatsappUrl = `https://wa.me/${config.whatsappNumber}?text=${encodeURIComponent(
     'Hello Shubham Gold Company! I am planning to visit your Giri Nagar, Banashankari showroom for a gold valuation.'
@@ -236,11 +265,17 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ config }) => {
                   />
                 </div>
 
+                {errorMessage && (
+                  <p className="text-xs text-rose-600 font-semibold">{errorMessage}</p>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full bg-[#B5121B] hover:bg-[#910D15] text-white font-semibold text-xs sm:text-sm py-3.5 rounded-sm transition-all shadow-xs cursor-pointer active:translate-y-0.5 mt-2"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#B5121B] hover:bg-[#910D15] text-white font-semibold text-xs sm:text-sm py-3.5 rounded-sm transition-all shadow-xs cursor-pointer active:translate-y-0.5 mt-2 flex items-center justify-center gap-2"
                 >
-                  Confirm Priority Appointment
+                  <MessageCircle className="w-4 h-4" />
+                  <span>{isSubmitting ? 'Opening WhatsApp...' : 'Confirm Priority Appointment on WhatsApp'}</span>
                 </button>
 
                 <div className="pt-2 flex items-center justify-center gap-4 text-xs font-semibold">
@@ -253,7 +288,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ config }) => {
                   </a>
                   <span className="text-gray-300">·</span>
                   <a
-                    href={whatsappUrl}
+                    href={bookedWhatsAppUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-emerald-700 hover:underline flex items-center gap-1"
@@ -269,17 +304,28 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ config }) => {
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
                 <h4 className="font-serif text-xl font-bold text-[#252525]">
-                  Appointment Reserved!
+                  Opening WhatsApp...
                 </h4>
                 <p className="text-xs text-gray-700">
-                  We look forward to welcoming you at our <strong>Giri Nagar, Banashankari</strong> showroom. A confirmation message has been dispatched to <strong className="font-mono">{bookingPhone}</strong>.
+                  We look forward to welcoming you at our <strong>Giri Nagar, Banashankari</strong> showroom. Your appointment details for <strong className="font-mono">{bookingPhone}</strong> have been prefilled.
                 </p>
-                <button
-                  onClick={() => setIsBooked(false)}
-                  className="text-xs text-[#B5121B] underline font-semibold mt-2"
-                >
-                  Book another appointment
-                </button>
+                <div className="pt-2 flex flex-col sm:flex-row gap-2.5 justify-center">
+                  <a
+                    href={bookedWhatsAppUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm py-2.5 px-4 rounded-sm flex items-center justify-center gap-2 transition-colors"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>Continue to WhatsApp</span>
+                  </a>
+                  <button
+                    onClick={() => setIsBooked(false)}
+                    className="text-xs text-gray-600 hover:text-[#B5121B] underline font-semibold py-2"
+                  >
+                    Book another appointment
+                  </button>
+                </div>
               </div>
             )}
           </div>

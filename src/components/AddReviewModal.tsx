@@ -4,19 +4,22 @@
  */
 
 import React, { useState } from 'react';
-import { X, Star, CheckCircle2, MessageSquarePlus } from 'lucide-react';
+import { X, Star, CheckCircle2, MessageSquarePlus, MessageCircle } from 'lucide-react';
 import { ReviewItem } from '../data/config';
+import { redirectToWhatsApp } from '../utils/whatsapp';
 
 interface AddReviewModalProps {
   isOpen: boolean;
   onClose: () => void;
   onAddReview: (review: ReviewItem) => void;
+  whatsappNumber?: string;
 }
 
 export const AddReviewModal: React.FC<AddReviewModalProps> = ({
   isOpen,
   onClose,
-  onAddReview
+  onAddReview,
+  whatsappNumber
 }) => {
   const [author, setAuthor] = useState('');
   const [location, setLocation] = useState('');
@@ -47,10 +50,20 @@ export const AddReviewModal: React.FC<AddReviewModalProps> = ({
 
     onAddReview(newRev);
     setSubmitted(true);
+
+    if (whatsappNumber) {
+      redirectToWhatsApp(whatsappNumber, 'Customer Review Submission', [
+        { label: 'Name', value: author.trim() },
+        { label: 'Location', value: location.trim() || 'Bengaluru' },
+        { label: 'Rating', value: `${rating} / 5 Stars` },
+        { label: 'Review Message', value: reviewText.trim() },
+      ]);
+    }
+
     setTimeout(() => {
       setSubmitted(false);
       onClose();
-    }, 1500);
+    }, 2000);
   };
 
   return (
