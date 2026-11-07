@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { Plus, Minus, ArrowRight, ShieldCheck, FileCheck, CheckCircle2 } from 'lucide-react';
+import { ChevronDown, ArrowRight } from 'lucide-react';
 import { CompanyConfig } from '../data/config';
 
 interface HowToSellAccordionSectionProps {
@@ -147,59 +147,61 @@ export const HowToSellAccordionSection: React.FC<HowToSellAccordionSectionProps>
   const currentSteps = activeTab === 'sell' ? sellSteps : loanSteps;
 
   return (
-    <section id="procedures" className="py-16 sm:py-24 bg-white border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section id="procedures" className="py-12 sm:py-16 lg:py-24 bg-white border-b border-gray-100 w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 w-full">
         
         {/* Section Heading & Tab Switcher */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 sm:gap-6 mb-8 sm:mb-12">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-2 mb-3 text-xs font-semibold uppercase tracking-widest text-[#B5121B]">
+            <div className="flex items-center gap-2 mb-2 sm:mb-3 text-xs font-semibold uppercase tracking-widest text-[#B5121B]">
               <span className="w-5 h-[1.5px] bg-[#B5121B]" />
               <span>Step-by-Step Procedure</span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#252525] tracking-tight leading-tight">
+            <h2 className="font-serif text-2xl min-[360px]:text-3xl sm:text-4xl lg:text-5xl font-bold text-[#252525] tracking-tight leading-tight">
               {activeTab === 'sell' ? 'Sell Your Gold in Easy Steps' : 'Release Gold Loan in Easy Steps'}
             </h2>
           </div>
 
-          {/* Interactive Filter / Tab Buttons (Allowed by Frontend Design Constitution) */}
-          <div className="inline-flex p-1 bg-[#FAF7F0] border border-[#E8CE83] rounded-sm self-start md:self-auto">
+          {/* Mobile-Friendly Full-Width Tab Buttons */}
+          <div className="w-full sm:w-auto grid grid-cols-2 sm:inline-flex p-1 bg-[#FAF7F0] border border-[#E8CE83] rounded-sm">
             <button
+              type="button"
               onClick={() => {
                 setActiveTab('sell');
                 setOpenIndex(0);
               }}
-              className={`px-4 py-2 text-xs font-bold rounded-xs transition-colors cursor-pointer ${
+              className={`py-2 px-2.5 min-[360px]:px-4 text-[11px] min-[360px]:text-xs font-bold rounded-xs transition-colors cursor-pointer text-center ${
                 activeTab === 'sell'
                   ? 'bg-[#B5121B] text-white shadow-xs'
                   : 'text-gray-700 hover:text-[#B5121B]'
               }`}
             >
-              Sell Your Gold (7 Steps)
+              Sell Gold (7 Steps)
             </button>
             <button
+              type="button"
               onClick={() => {
                 setActiveTab('loan');
                 setOpenIndex(0);
               }}
-              className={`px-4 py-2 text-xs font-bold rounded-xs transition-colors cursor-pointer ${
+              className={`py-2 px-2.5 min-[360px]:px-4 text-[11px] min-[360px]:text-xs font-bold rounded-xs transition-colors cursor-pointer text-center ${
                 activeTab === 'loan'
                   ? 'bg-[#B5121B] text-white shadow-xs'
                   : 'text-gray-700 hover:text-[#B5121B]'
               }`}
             >
-              Release Gold Loan (8 Steps)
+              Release Loan (8 Steps)
             </button>
           </div>
         </div>
 
         {/* 2-Column Split: Visual Frame on Left + Accordion on Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start w-full">
           
           {/* Left: Original Process Image (sub-images-sg-2.png) in Luxury Framing */}
-          <div className="lg:col-span-5 lg:sticky lg:top-24">
-            <div className="border border-[#E8CE83] bg-[#FAF7F0] p-3 rounded-sm shadow-md">
+          <div className="lg:col-span-5 lg:sticky lg:top-24 w-full">
+            <div className="border border-[#E8CE83] bg-[#FAF7F0] p-3 sm:p-3.5 rounded-sm shadow-md">
               <div className="relative aspect-[4/3] overflow-hidden rounded-xs bg-white group">
                 <img
                   src="/assets/competitor/sub-images-sg-2.png"
@@ -208,18 +210,18 @@ export const HowToSellAccordionSection: React.FC<HowToSellAccordionSectionProps>
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-3 left-3 text-white">
-                  <span className="text-[10px] font-bold uppercase tracking-wider bg-[#B5121B] px-2.5 py-1 rounded-xs block mb-1">
+                <div className="absolute bottom-2.5 sm:bottom-3 left-2.5 sm:left-3 right-2.5 text-white">
+                  <span className="text-[10px] font-bold uppercase tracking-wider bg-[#B5121B] px-2 py-0.5 rounded-xs inline-block mb-1">
                     {activeTab === 'sell' ? '7-Step Selling Protocol' : '8-Step Loan Release Protocol'}
                   </span>
-                  <p className="text-xs text-white/90 font-sans">
+                  <p className="text-[11px] sm:text-xs text-white/90 font-sans leading-tight">
                     100% Transparent German XRF Karatmeter Testing
                   </p>
                 </div>
               </div>
 
               {/* Inset Highlights */}
-              <div className="mt-4 pt-3 border-t border-[#E8CE83]/60 space-y-2 text-xs text-gray-700">
+              <div className="mt-3.5 pt-3 border-t border-[#E8CE83]/60 space-y-2 text-xs text-gray-700">
                 <div className="flex items-center justify-between">
                   <span className="font-semibold text-[#252525]">Branches:</span>
                   <span className="text-[#8C6514] font-bold">3+ Branches Across Karnataka</span>
@@ -234,10 +236,11 @@ export const HowToSellAccordionSection: React.FC<HowToSellAccordionSectionProps>
                 </div>
               </div>
 
-              <div className="mt-4 pt-3">
+              <div className="mt-3.5 pt-3">
                 <button
+                  type="button"
                   onClick={onOpenSellModal}
-                  className="w-full bg-[#B5121B] hover:bg-[#910D15] text-white font-semibold text-xs sm:text-sm py-3 rounded-sm transition-all shadow-xs cursor-pointer flex items-center justify-center gap-2 active:translate-y-0.5"
+                  className="w-full bg-[#B5121B] hover:bg-[#910D15] text-white font-semibold text-xs min-[360px]:text-sm py-3.5 rounded-sm transition-all shadow-xs cursor-pointer flex items-center justify-center gap-2 active:translate-y-0.5"
                 >
                   <span>{activeTab === 'sell' ? 'Check Your Gold Price' : 'Request Loan Clearance'}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -246,40 +249,46 @@ export const HowToSellAccordionSection: React.FC<HowToSellAccordionSectionProps>
             </div>
           </div>
 
-          {/* Right: Clean Luxury Accordion List */}
-          <div className="lg:col-span-7 divide-y divide-gray-200 border-t border-b border-gray-200">
+          {/* Right: Clean Luxury Accordion List with Chevron Dropdown */}
+          <div className="lg:col-span-7 divide-y divide-gray-200 border-t border-b border-gray-200 w-full">
             {currentSteps.map((step, idx) => {
               const isOpen = openIndex === idx;
               return (
-                <div key={idx} className="py-4.5 sm:py-5">
+                <div key={idx} className="py-3.5 sm:py-4.5">
                   <button
+                    type="button"
                     onClick={() => setOpenIndex(isOpen ? null : idx)}
-                    className="w-full text-left flex items-start justify-between gap-4 cursor-pointer group"
+                    className="w-full text-left flex items-start justify-between gap-3 cursor-pointer group"
+                    aria-expanded={isOpen}
                   >
-                    <div className="flex items-start gap-3">
-                      <span className="font-mono text-sm font-bold text-[#B5121B] bg-[#FAF7F0] border border-[#E8CE83] w-7 h-7 rounded-xs flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="flex items-start gap-2.5 sm:gap-3 min-w-0">
+                      <span className="font-mono text-xs sm:text-sm font-bold text-[#B5121B] bg-[#FAF7F0] border border-[#E8CE83] w-6 h-6 sm:w-7 sm:h-7 rounded-xs flex items-center justify-center shrink-0 mt-0.5">
                         {idx + 1}
                       </span>
-                      <div>
-                        <h3 className="font-serif text-base sm:text-lg font-bold text-[#252525] group-hover:text-[#B5121B] transition-colors leading-tight mb-0.5">
+                      <div className="min-w-0">
+                        <h3 className="font-serif text-sm sm:text-base lg:text-lg font-bold text-[#252525] group-hover:text-[#B5121B] transition-colors leading-snug mb-0.5 break-words">
                           {step.title}
                         </h3>
-                        <span className="text-xs text-gray-500 font-medium">
+                        <span className="text-[11px] sm:text-xs text-gray-500 font-medium block break-words">
                           {step.subtitle}
                         </span>
                       </div>
                     </div>
 
-                    <div className="w-6 h-6 rounded-xs border border-gray-300 flex items-center justify-center text-gray-700 shrink-0 mt-1 group-hover:border-[#B5121B] group-hover:text-[#B5121B] transition-colors">
-                      {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
+                    <div className="w-6 h-6 rounded-xs bg-[#FAF7F0] border border-gray-200 flex items-center justify-center shrink-0 mt-0.5 group-hover:border-[#B5121B] transition-colors">
+                      <ChevronDown
+                        className={`w-3.5 h-3.5 transition-transform duration-300 ${
+                          isOpen ? 'rotate-180 text-[#B5121B]' : 'text-gray-500 group-hover:text-[#B5121B]'
+                        }`}
+                      />
                     </div>
                   </button>
 
                   {isOpen && (
-                    <div className="pt-3.5 pl-10 pr-6 text-gray-700 text-xs sm:text-sm leading-relaxed font-sans animate-in fade-in duration-150">
+                    <div className="pt-3 pl-8 sm:pl-10 pr-2 sm:pr-4 text-gray-700 text-xs sm:text-sm leading-relaxed font-sans animate-in fade-in duration-150">
                       <ul className="space-y-1.5 list-disc list-outside pl-3 marker:text-[#B5121B]">
                         {step.details.map((d, dIdx) => (
-                          <li key={dIdx} className="text-gray-600">{d}</li>
+                          <li key={dIdx} className="text-gray-600 break-words">{d}</li>
                         ))}
                       </ul>
                     </div>

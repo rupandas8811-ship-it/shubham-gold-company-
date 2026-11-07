@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { Plus, Minus, Send, CheckCircle2, ShieldCheck, PhoneCall } from 'lucide-react';
+import { ChevronDown, Send, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { CompanyConfig } from '../data/config';
 
 interface FeedbackAndFaqSectionProps {
@@ -20,6 +20,7 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  // Default first FAQ open, clicks toggle collapse/expand
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const faqs = [
@@ -74,30 +75,30 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
   };
 
   return (
-    <section id="faqs" className="py-16 sm:py-24 bg-[#FAF7F0] border-b border-[#E8CE83]/40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section id="faqs" className="py-12 sm:py-16 lg:py-24 bg-[#FAF7F0] border-b border-[#E8CE83]/40 w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 w-full">
         
-        {/* Section Header: Learn More From / Frequently Asked Questions */}
-        <div className="max-w-3xl mb-12">
-          <div className="flex items-center gap-2 mb-3 text-xs font-semibold uppercase tracking-widest text-[#B5121B]">
+        {/* Section Header */}
+        <div className="max-w-3xl mb-8 sm:mb-12">
+          <div className="flex items-center gap-2 mb-2 sm:mb-3 text-xs font-semibold uppercase tracking-widest text-[#B5121B]">
             <span className="w-5 h-[1.5px] bg-[#B5121B]" />
             <span>Learn More From</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#252525] tracking-tight leading-tight mb-4">
+          <h2 className="font-serif text-2xl min-[360px]:text-3xl sm:text-4xl lg:text-5xl font-bold text-[#252525] tracking-tight leading-tight mb-3 sm:mb-4">
             Frequently Asked Questions
           </h2>
 
-          <p className="text-gray-700 text-base sm:text-lg font-sans leading-relaxed">
+          <p className="text-gray-700 text-sm sm:text-base lg:text-lg font-sans leading-relaxed">
             Clear, transparent answers to every question regarding ID requirements, live gold testing, branch timings, and payment procedures.
           </p>
         </div>
 
-        {/* 2-Column Split: Fill Your Feedback Form on Left + Complete FAQ Accordion on Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        {/* 2-Column Split: Fill Your Feedback Form on Left + FAQ Accordion on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start w-full">
           
           {/* Left: Fill Your Feedback Form */}
-          <div className="lg:col-span-5 bg-white border border-[#E8CE83] p-6 sm:p-8 rounded-sm shadow-xs">
+          <div className="lg:col-span-5 bg-white border border-[#E8CE83] p-5 sm:p-7 lg:p-8 rounded-sm shadow-xs w-full">
             <div className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-widest text-[#B5121B]">
               <span className="w-3.5 h-[1.5px] bg-[#B5121B]" />
               <span>Get an instant estimate</span>
@@ -106,12 +107,12 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#252525] mb-2">
               Fill Your Feedback
             </h3>
-            <p className="text-xs text-gray-600 mb-6 font-sans">
+            <p className="text-xs sm:text-sm text-gray-600 mb-5 sm:mb-6 font-sans leading-relaxed">
               Have a question or want to lock in today's best price? Fill your details and our branch manager will call you immediately.
             </p>
 
             {!submitted ? (
-              <form onSubmit={handleSubmitInquiry} className="space-y-4">
+              <form onSubmit={handleSubmitInquiry} className="space-y-4 w-full">
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-wider text-gray-700 mb-1.5">
                     Your Name *
@@ -122,7 +123,7 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Enter your name"
                     required
-                    className="w-full px-3.5 py-2.5 bg-[#FAF7F0] border border-gray-200 text-sm text-gray-900 rounded-sm focus:outline-none focus:border-[#B5121B]"
+                    className="w-full px-3.5 py-3 bg-[#FAF7F0] border border-gray-200 text-sm text-gray-900 rounded-sm focus:outline-none focus:border-[#B5121B] focus:bg-white transition-colors"
                   />
                 </div>
 
@@ -136,7 +137,7 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="e.g. 98450 12345"
                     required
-                    className="w-full px-3.5 py-2.5 bg-[#FAF7F0] border border-gray-200 text-sm text-gray-900 rounded-sm focus:outline-none focus:border-[#B5121B]"
+                    className="w-full px-3.5 py-3 bg-[#FAF7F0] border border-gray-200 text-sm text-gray-900 rounded-sm focus:outline-none focus:border-[#B5121B] focus:bg-white transition-colors"
                   />
                 </div>
 
@@ -147,7 +148,7 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
                   <select
                     value={inquiryType}
                     onChange={(e) => setInquiryType(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-[#FAF7F0] border border-gray-200 text-sm text-gray-900 rounded-sm focus:outline-none focus:border-[#B5121B]"
+                    className="w-full px-3.5 py-3 bg-[#FAF7F0] border border-gray-200 text-sm text-gray-900 rounded-sm focus:outline-none focus:border-[#B5121B] focus:bg-white transition-colors"
                   >
                     <option value="Valuation">Sell Physical Gold (We Buy Your Gold)</option>
                     <option value="PledgedGold">Release Pledged Gold Loan</option>
@@ -165,7 +166,7 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Share your ornaments type, approximate weight, or questions..."
-                    className="w-full px-3.5 py-2.5 bg-[#FAF7F0] border border-gray-200 text-sm text-gray-900 rounded-sm focus:outline-none focus:border-[#B5121B] resize-none"
+                    className="w-full px-3.5 py-2.5 bg-[#FAF7F0] border border-gray-200 text-sm text-gray-900 rounded-sm focus:outline-none focus:border-[#B5121B] focus:bg-white resize-none transition-colors"
                   />
                 </div>
 
@@ -176,7 +177,7 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#B5121B] hover:bg-[#910D15] text-white font-semibold text-xs sm:text-sm py-3.5 rounded-sm transition-all shadow-xs cursor-pointer flex items-center justify-center gap-2 active:translate-y-0.5"
+                  className="w-full bg-[#B5121B] hover:bg-[#910D15] text-white font-semibold text-xs min-[360px]:text-sm py-3.5 rounded-sm transition-all shadow-xs cursor-pointer flex items-center justify-center gap-2 active:translate-y-0.5 animate-btn-shine"
                 >
                   <span>{isSubmitting ? 'Submitting...' : 'Submit Feedback & Callback'}</span>
                   <Send className="w-3.5 h-3.5" />
@@ -194,18 +195,19 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
                 <h4 className="font-serif text-xl font-bold text-[#252525]">
                   Thank you!
                 </h4>
-                <p className="text-xs text-gray-700">
+                <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
                   Thank you, <strong>{name}</strong>. Our valuation manager will reach out to you on{' '}
                   <strong className="font-mono">{phone}</strong> shortly.
                 </p>
                 <button
+                  type="button"
                   onClick={() => {
                     setSubmitted(false);
                     setName('');
                     setPhone('');
                     setMessage('');
                   }}
-                  className="text-xs text-[#B5121B] underline font-semibold mt-2"
+                  className="text-xs text-[#B5121B] underline font-semibold mt-2 cursor-pointer"
                 >
                   Submit another inquiry
                 </button>
@@ -213,35 +215,47 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
             )}
           </div>
 
-          {/* Right: Complete 7-Item FAQ Accordion (Extracted Verbatim from Competitor HTML) */}
-          <div className="lg:col-span-7 divide-y divide-gray-200 border-t border-b border-gray-200">
+          {/* Right: Mobile-Friendly FAQ Accordion Dropdown */}
+          <div className="lg:col-span-7 space-y-3 w-full">
             {faqs.map((faq, idx) => {
               const isOpen = openFaqIndex === idx;
               return (
-                <div key={idx} className="py-5">
+                <div
+                  key={idx}
+                  className="bg-white border border-[#E8CE83]/70 rounded-sm overflow-hidden transition-all shadow-2xs hover:border-[#B5121B]/60"
+                >
+                  {/* FAQ Question Header Button with Dropdown Arrow */}
                   <button
+                    type="button"
                     onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                    className="w-full text-left flex items-start justify-between gap-4 cursor-pointer group"
+                    className="w-full text-left p-4 sm:p-5 flex items-start justify-between gap-3 sm:gap-4 cursor-pointer group transition-colors"
+                    aria-expanded={isOpen}
                   >
-                    <div className="flex items-start gap-3">
-                      <span className="font-mono text-xs font-bold text-[#8C6514] bg-white border border-[#E8CE83] w-6 h-6 rounded-xs flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                    <div className="flex items-start gap-2.5 sm:gap-3.5 min-w-0">
+                      <span className="font-mono text-xs font-bold text-[#8C6514] bg-[#FAF7F0] border border-[#E8CE83] w-6 h-6 rounded-xs flex items-center justify-center shrink-0 mt-0.5">
                         {idx + 1}
                       </span>
-                      <h3 className="font-serif text-base sm:text-lg font-bold text-[#252525] group-hover:text-[#B5121B] transition-colors pr-2 leading-snug">
+                      <h3 className="font-serif text-sm sm:text-base lg:text-lg font-bold text-[#252525] group-hover:text-[#B5121B] transition-colors leading-snug break-words">
                         {faq.q}
                       </h3>
                     </div>
 
-                    <div className="w-6 h-6 rounded-xs border border-gray-300 flex items-center justify-center text-gray-700 shrink-0 mt-0.5 group-hover:border-[#B5121B] group-hover:text-[#B5121B] transition-colors">
-                      {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
+                    {/* Dropdown Arrow with Smooth Rotation */}
+                    <div className="w-6 h-6 rounded-xs bg-[#FAF7F0] border border-gray-200 flex items-center justify-center shrink-0 mt-0.5 group-hover:border-[#B5121B] transition-colors">
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform duration-300 ${
+                          isOpen ? 'rotate-180 text-[#B5121B]' : 'text-gray-500 group-hover:text-[#B5121B]'
+                        }`}
+                      />
                     </div>
                   </button>
 
+                  {/* Expandable FAQ Answer Area */}
                   {isOpen && (
-                    <div className="pt-3.5 pl-9 pr-6 text-gray-700 text-xs sm:text-sm leading-relaxed font-sans animate-in fade-in duration-150">
-                      <p className="bg-white/80 border-l-2 border-[#B5121B] p-3 rounded-xs text-gray-700 font-medium">
+                    <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0 animate-in fade-in duration-200">
+                      <div className="bg-[#FAF7F0] border-l-3 border-[#B5121B] p-3.5 sm:p-4 rounded-xs text-xs sm:text-sm text-gray-700 leading-relaxed font-sans break-words">
                         {faq.a}
-                      </p>
+                      </div>
                     </div>
                   )}
                 </div>

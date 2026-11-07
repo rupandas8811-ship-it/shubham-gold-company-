@@ -12,7 +12,6 @@ import { BusinessStatistics } from '../components/BusinessStatistics';
 import { WhyChooseUsSection } from '../components/WhyChooseUsSection';
 import { FourStepsVisualSection } from '../components/FourStepsVisualSection';
 import { HowToSellAccordionSection } from '../components/HowToSellAccordionSection';
-import { CustomerReviewsSection } from '../components/CustomerReviewsSection';
 import { FeedbackAndFaqSection } from '../components/FeedbackAndFaqSection';
 import { ContactSection } from '../components/ContactSection';
 
@@ -88,16 +87,10 @@ export const HomePage: React.FC<HomePageProps> = ({
         onOpenSellModal={onOpenQuoteModal}
       />
 
-      {/* 8. Customer Reviews & Testimonials (Competitor Section 8) */}
-      <CustomerReviewsSection
-        config={config}
-        onOpenAddReview={onOpenAddReview}
-      />
-
-      {/* 9. Feedback & Frequently Asked Questions (Competitor Section 9) */}
+      {/* 8. Feedback & Frequently Asked Questions (Competitor Section 9) */}
       <FeedbackAndFaqSection config={config} />
 
-      {/* 10. Branch Locator & Appointment Booking (User Business Info Preserved) */}
+      {/* 9. Branch Locator & Appointment Booking (User Business Info Preserved) */}
       <ContactSection config={config} />
     </div>
   );

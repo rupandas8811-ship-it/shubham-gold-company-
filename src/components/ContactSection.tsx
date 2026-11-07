@@ -90,11 +90,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ config }) => {
                 href={OFFICIAL_MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-[#B5121B] hover:bg-[#910D15] px-4 py-2 rounded-sm transition-colors shadow-xs"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 text-xs font-bold text-white bg-[#B5121B] hover:bg-[#910D15] px-4 py-2.5 rounded-sm transition-colors shadow-xs"
               >
-                <Navigation className="w-3.5 h-3.5" />
+                <Navigation className="w-3.5 h-3.5 shrink-0" />
                 <span>Get Directions on Google Maps</span>
-                <ExternalLink className="w-3 h-3 ml-0.5" />
+                <ExternalLink className="w-3 h-3 ml-0.5 shrink-0" />
               </a>
             </div>
 

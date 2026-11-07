@@ -49,13 +49,13 @@ export const GoldLoanReleaseModal: React.FC<GoldLoanReleaseModalProps> = ({
   )}`;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="relative w-full max-w-lg bg-white rounded-sm border border-[#E8CE83] shadow-xl overflow-hidden animate-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+      <div className="relative w-full max-w-lg max-h-[92dvh] flex flex-col bg-white rounded-sm border border-[#E8CE83] shadow-xl overflow-hidden animate-in zoom-in-95 duration-150">
         
         {/* Header with Official Logo */}
-        <div className="bg-[#FAF7F0] border-b border-[#E8CE83] p-4 sm:p-5 flex items-center justify-between gap-3">
+        <div className="bg-[#FAF7F0] border-b border-[#E8CE83] p-3.5 sm:p-5 flex items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="h-9 w-auto bg-black p-0.5 rounded-sm border border-[#C99A2E]/60 shadow-xs flex items-center justify-center shrink-0">
+            <div className="h-8 sm:h-9 w-auto bg-black p-0.5 rounded-sm border border-[#C99A2E]/60 shadow-xs flex items-center justify-center shrink-0">
               <img
                 src={OFFICIAL_LOGO_URL}
                 alt="Shubham Gold Company Logo"
@@ -66,7 +66,7 @@ export const GoldLoanReleaseModal: React.FC<GoldLoanReleaseModalProps> = ({
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#B5121B] block">
                 Financial Redemption Desk
               </span>
-              <h3 className="font-serif text-base sm:text-lg font-bold text-[#252525] truncate">
+              <h3 className="font-serif text-sm sm:text-lg font-bold text-[#252525] truncate">
                 Pledged Gold Loan Release Service
               </h3>
             </div>
@@ -74,7 +74,7 @@ export const GoldLoanReleaseModal: React.FC<GoldLoanReleaseModalProps> = ({
 
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-[#B5121B] p-1 transition-colors cursor-pointer"
+            className="text-gray-500 hover:text-[#B5121B] p-1.5 transition-colors cursor-pointer shrink-0"
             aria-label="Close dialog"
           >
             <X className="w-5 h-5" />
@@ -82,10 +82,10 @@ export const GoldLoanReleaseModal: React.FC<GoldLoanReleaseModalProps> = ({
         </div>
 
         {/* Modal Body */}
-        <div className="p-6">
+        <div className="p-4 sm:p-6 overflow-y-auto overscroll-contain flex-1">
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
+              <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
                     Your Name
