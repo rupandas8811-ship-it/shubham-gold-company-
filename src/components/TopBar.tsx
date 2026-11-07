@@ -13,11 +13,11 @@ interface TopBarProps {
 
 export const TopBar: React.FC<TopBarProps> = ({ config }) => {
   return (
-    <div className="bg-[#FAF7F0] text-[#252525] py-1.5 sm:py-2 px-3 sm:px-6 border-b border-[#E8CE83]/40 w-full max-w-full overflow-hidden">
-      <div className="max-w-7xl mx-auto flex flex-row items-center justify-between gap-1.5 sm:gap-4 w-full">
+    <div className="bg-[#FAF7F0] text-[#252525] py-1.5 sm:py-2 px-2 min-[360px]:px-3 sm:px-6 border-b border-[#E8CE83]/40 w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto flex flex-row items-center justify-between gap-1 sm:gap-4 w-full flex-nowrap min-w-0">
         
         {/* Contact details: Strictly ONE single horizontal line on all screens */}
-        <div className="flex items-center gap-x-1.5 min-[360px]:gap-x-2 sm:gap-x-3 text-[9px] min-[340px]:text-[9.5px] min-[375px]:text-[10.5px] sm:text-xs text-gray-700 whitespace-nowrap overflow-hidden shrink-0">
+        <div className="flex items-center gap-x-1 min-[340px]:gap-x-1.5 min-[375px]:gap-x-2.5 sm:gap-x-3 text-[9px] min-[340px]:text-[9.5px] min-[375px]:text-[10px] sm:text-xs text-gray-700 whitespace-nowrap overflow-hidden shrink-0">
           {/* Phone call link */}
           <a
             href={`tel:${config.phone}`}
@@ -62,7 +62,7 @@ export const TopBar: React.FC<TopBarProps> = ({ config }) => {
         </div>
 
         {/* Operating Hours & Social Media Icons: Kept in the same single line on right */}
-        <div className="flex items-center justify-end gap-2 sm:gap-3 text-[10px] sm:text-xs shrink-0">
+        <div className="flex items-center justify-end gap-1.5 sm:gap-3 text-[10px] sm:text-xs shrink-0 flex-nowrap">
           <div className="hidden sm:flex items-center gap-1.5 text-gray-600">
             <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#C99A2E] shrink-0" />
             <span>{config.timingsWeekdays}</span>
@@ -71,7 +71,7 @@ export const TopBar: React.FC<TopBarProps> = ({ config }) => {
           <span className="text-gray-300 hidden sm:inline" aria-hidden="true">|</span>
 
           {/* Social media icons: Instagram, Facebook, Google My Business */}
-          <div className="flex items-center gap-1.5 min-[360px]:gap-2 sm:gap-3 text-gray-600 shrink-0">
+          <div className="flex items-center gap-1 min-[360px]:gap-1.5 sm:gap-3 text-gray-600 shrink-0 flex-nowrap">
             {/* 1. Instagram */}
             <a
               href={config.socials.instagram}
@@ -79,9 +79,9 @@ export const TopBar: React.FC<TopBarProps> = ({ config }) => {
               rel="noopener noreferrer"
               aria-label="Instagram"
               title="Follow Shubham Gold Company on Instagram"
-              className="hover:text-[#E1306C] text-gray-600 transition-colors p-0.5 flex items-center justify-center"
+              className="hover:text-[#E1306C] text-gray-600 transition-colors p-0.5 flex items-center justify-center shrink-0"
             >
-              <Instagram className="w-2.5 h-2.5 min-[360px]:w-3 min-[360px]:h-3 sm:w-3.5 sm:h-3.5" />
+              <Instagram className="w-2.5 h-2.5 min-[360px]:w-3 min-[360px]:h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
             </a>
 
             {/* 2. Facebook */}
@@ -91,9 +91,9 @@ export const TopBar: React.FC<TopBarProps> = ({ config }) => {
               rel="noopener noreferrer"
               aria-label="Facebook"
               title="Like Shubham Gold Company on Facebook"
-              className="hover:text-[#1877F2] text-gray-600 transition-colors p-0.5 flex items-center justify-center"
+              className="hover:text-[#1877F2] text-gray-600 transition-colors p-0.5 flex items-center justify-center shrink-0"
             >
-              <Facebook className="w-2.5 h-2.5 min-[360px]:w-3 min-[360px]:h-3 sm:w-3.5 sm:h-3.5" />
+              <Facebook className="w-2.5 h-2.5 min-[360px]:w-3 min-[360px]:h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
             </a>
 
             {/* 3. Google My Business (Google Business Profile) */}
@@ -103,7 +103,7 @@ export const TopBar: React.FC<TopBarProps> = ({ config }) => {
               rel="noopener noreferrer"
               aria-label="Google My Business"
               title="Visit Shubham Gold Company on Google Business Profile"
-              className="p-0.5 flex items-center justify-center transition-opacity hover:opacity-80"
+              className="p-0.5 flex items-center justify-center transition-opacity hover:opacity-80 shrink-0"
             >
               <svg
                 className="w-2.5 h-2.5 min-[360px]:w-3 min-[360px]:h-3 sm:w-3.5 sm:h-3.5 shrink-0"

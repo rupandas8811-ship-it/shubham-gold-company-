@@ -24,24 +24,32 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
 
   const faqs = [
     {
-      q: 'Can I sell gold without the original purchase invoice or bill?',
-      a: 'Yes. While an original bill is helpful, it is not mandatory for selling personal or family gold. We verify your identity with government-issued photo ID (Aadhaar/PAN) and execute a standard statutory declaration of ownership at the counter.'
+      q: 'What ID Proof is Required For Selling Gold?',
+      a: 'You’ll need to bring your Aadhar card as address proof, along with a photo, when selling gold.'
     },
     {
-      q: 'Does your purity testing melt or scratch my jewellery?',
-      a: 'Not at all. We utilize computerized German X-Ray Fluorescence (XRF) spectrometers. The analysis is 100% non-destructive and takes less than 60 seconds without heat, melting, or acid scratching.'
+      q: 'Can I sell gold for cash?',
+      a: 'You can sell gold for cash using only two documents: a passport photo and an Aadhar card.'
     },
     {
-      q: 'How quickly will I receive payment for my gold?',
-      a: 'Payment is disbursed instantly upon your written agreement. You can choose cash on the spot (within statutory limits) or immediate IMPS / RTGS / UPI bank transfer credited to your account within 5 to 10 minutes.'
+      q: 'What are your Branch Timings?',
+      a: 'Our branches welcome you from Monday to Saturday, operating from 10 am to 7 pm. Check out our website to find the nearest location.'
     },
     {
-      q: 'How does your pledged gold release service work?',
-      a: 'If your jewellery is pledged with a bank or NBFC (like Muthoot or Manappuram), we visit the lender branch with you, settle the principal and interest directly on your behalf, retrieve the ornaments safely, and pay you the remaining cash surplus immediately.'
+      q: 'Can I sell my gold which is without a hallmark?',
+      a: 'Yes, you can sell gold without a hallmark; however, the payment you receive will be determined by the gold’s purity value.'
     },
     {
-      q: 'What is the minimum or maximum gold weight you purchase?',
-      a: 'We accept quantities from as small as 1 gram up to several kilograms. Large institutional or family bullion sales are handled privately in our secure VIP appraisal cabins.'
+      q: 'Will you Buy Diamond And Silver?',
+      a: 'No, we do not buy diamonds and silver. We only operate our business as GOLD Buyer.'
+    },
+    {
+      q: 'Is gold easy and safe to sell?',
+      a: 'Unlike many other types of investments, gold is relatively easy to convert into cash. There is consistently a strong demand for gold, whether it’s in the form of coins, bars, or other formats. Typically, the gold items sold are melted down and refined into pure gold.'
+    },
+    {
+      q: 'Do you charge for gold valuation?',
+      a: 'Our gold valuation is provided free of cost.'
     }
   ];
 
@@ -69,32 +77,37 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
     <section id="faqs" className="py-16 sm:py-24 bg-[#FAF7F0] border-b border-[#E8CE83]/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
-        {/* Section Header */}
+        {/* Section Header: Learn More From / Frequently Asked Questions */}
         <div className="max-w-3xl mb-12">
           <div className="flex items-center gap-2 mb-3 text-xs font-semibold uppercase tracking-widest text-[#B5121B]">
             <span className="w-5 h-[1.5px] bg-[#B5121B]" />
-            <span>Clear Answers &amp; Direct Consultation</span>
+            <span>Learn More From</span>
           </div>
 
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#252525] tracking-tight leading-tight mb-4">
-            Frequently Asked Questions &amp; Inquiries
+            Frequently Asked Questions
           </h2>
 
           <p className="text-gray-700 text-base sm:text-lg font-sans leading-relaxed">
-            Everything you need to know about our gold testing methodology, pricing benchmarks, and branch services.
+            Clear, transparent answers to every question regarding ID requirements, live gold testing, branch timings, and payment procedures.
           </p>
         </div>
 
-        {/* 2-Column Split */}
+        {/* 2-Column Split: Fill Your Feedback Form on Left + Complete FAQ Accordion on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          {/* Left: Clean Consultation & Inquiry Form */}
+          {/* Left: Fill Your Feedback Form */}
           <div className="lg:col-span-5 bg-white border border-[#E8CE83] p-6 sm:p-8 rounded-sm shadow-xs">
+            <div className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-widest text-[#B5121B]">
+              <span className="w-3.5 h-[1.5px] bg-[#B5121B]" />
+              <span>Get an instant estimate</span>
+            </div>
+            
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#252525] mb-2">
-              Request a Confidential Call
+              Fill Your Feedback
             </h3>
             <p className="text-xs text-gray-600 mb-6 font-sans">
-              Speak privately with our senior valuation manager before your branch visit.
+              Have a question or want to lock in today's best price? Fill your details and our branch manager will call you immediately.
             </p>
 
             {!submitted ? (
@@ -136,22 +149,22 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
                     onChange={(e) => setInquiryType(e.target.value)}
                     className="w-full px-3.5 py-2.5 bg-[#FAF7F0] border border-gray-200 text-sm text-gray-900 rounded-sm focus:outline-none focus:border-[#B5121B]"
                   >
-                    <option value="Valuation">Sell Physical Gold Jewellery</option>
+                    <option value="Valuation">Sell Physical Gold (We Buy Your Gold)</option>
                     <option value="PledgedGold">Release Pledged Gold Loan</option>
-                    <option value="CoinsBars">Sell Gold Coins or Bullion Bars</option>
+                    <option value="FreeValuation">Free Gold Valuation</option>
                     <option value="General">General Inquiry</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-wider text-gray-700 mb-1.5">
-                    Brief Notes (Optional)
+                    Your Feedback / Query (Optional)
                   </label>
                   <textarea
                     rows={3}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Approximate weight, ornaments type, or bank name..."
+                    placeholder="Share your ornaments type, approximate weight, or questions..."
                     className="w-full px-3.5 py-2.5 bg-[#FAF7F0] border border-gray-200 text-sm text-gray-900 rounded-sm focus:outline-none focus:border-[#B5121B] resize-none"
                   />
                 </div>
@@ -165,12 +178,12 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
                   disabled={isSubmitting}
                   className="w-full bg-[#B5121B] hover:bg-[#910D15] text-white font-semibold text-xs sm:text-sm py-3.5 rounded-sm transition-all shadow-xs cursor-pointer flex items-center justify-center gap-2 active:translate-y-0.5"
                 >
-                  <span>{isSubmitting ? 'Submitting...' : 'Request Direct Callback'}</span>
+                  <span>{isSubmitting ? 'Submitting...' : 'Submit Feedback & Callback'}</span>
                   <Send className="w-3.5 h-3.5" />
                 </button>
 
                 <p className="text-[11px] text-gray-500 text-center">
-                  🔒 Complete confidentiality. We never disclose seller details to third parties.
+                  🔒 Complete privacy. We never share customer data with anyone.
                 </p>
               </form>
             ) : (
@@ -179,10 +192,10 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
                 <h4 className="font-serif text-xl font-bold text-[#252525]">
-                  Inquiry Received
+                  Thank you!
                 </h4>
                 <p className="text-xs text-gray-700">
-                  Thank you, <strong>{name}</strong>. Our senior gold appraiser will contact you at{' '}
+                  Thank you, <strong>{name}</strong>. Our valuation manager will reach out to you on{' '}
                   <strong className="font-mono">{phone}</strong> shortly.
                 </p>
                 <button
@@ -194,13 +207,13 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
                   }}
                   className="text-xs text-[#B5121B] underline font-semibold mt-2"
                 >
-                  Send another message
+                  Submit another inquiry
                 </button>
               </div>
             )}
           </div>
 
-          {/* Right: Categorized FAQs Accordion */}
+          {/* Right: Complete 7-Item FAQ Accordion (Extracted Verbatim from Competitor HTML) */}
           <div className="lg:col-span-7 divide-y divide-gray-200 border-t border-b border-gray-200">
             {faqs.map((faq, idx) => {
               const isOpen = openFaqIndex === idx;
@@ -210,17 +223,25 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
                     onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
                     className="w-full text-left flex items-start justify-between gap-4 cursor-pointer group"
                   >
-                    <h3 className="font-serif text-base sm:text-lg font-bold text-[#252525] group-hover:text-[#B5121B] transition-colors pr-2">
-                      {faq.q}
-                    </h3>
-                    <div className="w-7 h-7 rounded-sm border border-gray-300 flex items-center justify-center text-gray-700 shrink-0 mt-0.5 group-hover:border-[#B5121B] group-hover:text-[#B5121B] transition-colors">
+                    <div className="flex items-start gap-3">
+                      <span className="font-mono text-xs font-bold text-[#8C6514] bg-white border border-[#E8CE83] w-6 h-6 rounded-xs flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                        {idx + 1}
+                      </span>
+                      <h3 className="font-serif text-base sm:text-lg font-bold text-[#252525] group-hover:text-[#B5121B] transition-colors pr-2 leading-snug">
+                        {faq.q}
+                      </h3>
+                    </div>
+
+                    <div className="w-6 h-6 rounded-xs border border-gray-300 flex items-center justify-center text-gray-700 shrink-0 mt-0.5 group-hover:border-[#B5121B] group-hover:text-[#B5121B] transition-colors">
                       {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
                     </div>
                   </button>
 
                   {isOpen && (
-                    <div className="pt-3 pr-8 text-gray-700 text-xs sm:text-sm leading-relaxed animate-in fade-in duration-150">
-                      <p>{faq.a}</p>
+                    <div className="pt-3.5 pl-9 pr-6 text-gray-700 text-xs sm:text-sm leading-relaxed font-sans animate-in fade-in duration-150">
+                      <p className="bg-white/80 border-l-2 border-[#B5121B] p-3 rounded-xs text-gray-700 font-medium">
+                        {faq.a}
+                      </p>
                     </div>
                   )}
                 </div>

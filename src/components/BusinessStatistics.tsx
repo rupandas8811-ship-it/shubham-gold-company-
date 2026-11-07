@@ -13,28 +13,24 @@ interface BusinessStatisticsProps {
 export const BusinessStatistics: React.FC<BusinessStatisticsProps> = ({ config }) => {
   const metrics = [
     {
-      value: config.stats.yearsOfExperience,
-      unit: 'Years',
-      title: 'Established Excellence',
-      description: 'Continuous trusted operation across Bengaluru since 2014.'
+      value: '3+',
+      label: 'Successful Years',
+      subtitle: 'Years Of Undefeated Success in transparent gold buying.'
     },
     {
-      value: config.stats.happyCustomers,
-      unit: 'Customers',
-      title: 'Satisfied Sellers',
-      description: 'Verified 5.0 Google rating across all service centers.'
+      value: '2000+',
+      label: 'Happy Customers',
+      subtitle: 'Sellers across Bengaluru & Karnataka served with 100% trust.'
     },
     {
-      value: config.stats.transactionsVolume,
-      unit: 'Payouts',
-      title: 'Transparent Disbursements',
-      description: 'Direct spot transfers via IMPS, UPI, and verified cash.'
+      value: '30+',
+      label: 'Colleagues & Staffs',
+      subtitle: 'Expert gold appraisers, metallurgists and support team.'
     },
     {
-      value: '100%',
-      unit: 'Testing',
-      title: 'Computerized Purity',
-      description: 'Zero melting loss using German XRF Karatmeters.'
+      value: '3+',
+      label: 'Branches',
+      subtitle: 'Convenient branch locations across Bengaluru & Karnataka.'
     }
   ];
 
@@ -42,28 +38,33 @@ export const BusinessStatistics: React.FC<BusinessStatisticsProps> = ({ config }
     <section className="bg-white py-14 sm:py-16 border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
-        {/* Metric Strip with Hairline Dividers */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-200">
+        {/* Section Heading */}
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <span className="text-xs font-semibold uppercase tracking-widest text-[#B5121B] block mb-2">
+            Proven Track Record
+          </span>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#252525]">
+            Number Speaks
+          </h2>
+        </div>
+
+        {/* Metric Strip with Luxury Gold Borders & Tabular Figures */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {metrics.map((metric, idx) => (
             <div
               key={idx}
-              className={`py-6 sm:py-2 ${
-                idx === 0 ? 'sm:pr-8' : idx === 3 ? 'sm:pl-8' : 'sm:px-8'
-              }`}
+              className="bg-[#FAF7F0] border border-[#E8CE83] p-6 rounded-sm text-center flex flex-col justify-between hover:border-[#B5121B] transition-all hover:shadow-xs group"
             >
-              <div className="flex items-baseline gap-1.5 mb-2">
-                <span className="font-serif font-bold text-3xl sm:text-4xl text-[#B5121B] tabular-nums font-mono">
+              <div>
+                <span className="font-serif font-bold text-4xl sm:text-5xl text-[#B5121B] tabular-nums block mb-2 group-hover:scale-105 transition-transform duration-300">
                   {metric.value}
                 </span>
-                <span className="text-xs uppercase tracking-wider text-[#8C6514] font-semibold">
-                  {metric.unit}
-                </span>
+                <h3 className="font-serif font-bold text-base text-[#252525] mb-2">
+                  {metric.label}
+                </h3>
               </div>
-              <h4 className="font-serif font-bold text-base text-[#252525] mb-1">
-                {metric.title}
-              </h4>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                {metric.description}
+              <p className="text-xs text-gray-600 leading-relaxed font-sans pt-2 border-t border-[#E8CE83]/40">
+                {metric.subtitle}
               </p>
             </div>
           ))}

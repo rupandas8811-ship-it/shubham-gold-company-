@@ -6,14 +6,12 @@
 import React, { useEffect } from 'react';
 import { CompanyConfig } from '../data/config';
 import { HeroSection } from '../components/HeroSection';
-import { JewelleryShowcaseSection } from '../components/JewelleryShowcaseSection';
 import { GoldValuationSection } from '../components/GoldValuationSection';
 import { AboutUsSection } from '../components/AboutUsSection';
 import { BusinessStatistics } from '../components/BusinessStatistics';
 import { WhyChooseUsSection } from '../components/WhyChooseUsSection';
 import { FourStepsVisualSection } from '../components/FourStepsVisualSection';
 import { HowToSellAccordionSection } from '../components/HowToSellAccordionSection';
-import { GoldLoanReleaseSection } from '../components/GoldLoanReleaseSection';
 import { CustomerReviewsSection } from '../components/CustomerReviewsSection';
 import { FeedbackAndFaqSection } from '../components/FeedbackAndFaqSection';
 import { ContactSection } from '../components/ContactSection';
@@ -45,7 +43,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   return (
     <div className="space-y-0">
-      {/* Hero Section */}
+      {/* 1. Hero Section (Strictly preserved) */}
       <HeroSection
         config={config}
         onOpenSellModal={onOpenQuoteModal}
@@ -55,13 +53,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         }}
       />
 
-      {/* Realistic Jewellery Showcase & Heritage Collections */}
-      <JewelleryShowcaseSection
-        config={config}
-        onOpenValuationModal={onOpenQuoteModal}
-      />
-
-      {/* Gold Valuation & Instant Calculator */}
+      {/* 2. Gold Valuation & Instant Estimate (Competitor Section 1) */}
       <GoldValuationSection
         config={config}
         onOpenContact={() => {
@@ -70,48 +62,42 @@ export const HomePage: React.FC<HomePageProps> = ({
         }}
       />
 
-      {/* About Us Summary */}
+      {/* 3. Build Your Trust - Core of Operations (Competitor Section 2) */}
       <AboutUsSection
         config={config}
         onOpenCheckValue={onOpenQuoteModal}
       />
 
-      {/* Business Statistics */}
+      {/* 4. Number Speaks - Statistics (Competitor Section 3) */}
       <BusinessStatistics config={config} />
 
-      {/* Why Choose Us */}
+      {/* 5. Our Commitment - A Trusted Way To Sell Your Gold (Competitor Section 4) */}
       <WhyChooseUsSection
         config={config}
         onOpenCheckValue={onOpenQuoteModal}
       />
 
-      {/* 4 Easy Steps */}
+      {/* 6. Sell Your Gold in 4 Easy Steps (Competitor Section 5) */}
       <FourStepsVisualSection
         onOpenSellModal={onOpenQuoteModal}
       />
 
-      {/* How To Sell 7-Step Accordion */}
+      {/* 7. Detailed Steps: Sell Gold (7 Steps) & Release Gold Loan (8 Steps) (Competitor Section 6 & 7) */}
       <HowToSellAccordionSection
         config={config}
         onOpenSellModal={onOpenQuoteModal}
       />
 
-      {/* Pledged Gold Loan Release Section */}
-      <GoldLoanReleaseSection
-        config={config}
-        onOpenReleaseModal={onOpenReleaseModal}
-      />
-
-      {/* Customer Reviews & Testimonials Slider */}
+      {/* 8. Customer Reviews & Testimonials (Competitor Section 8) */}
       <CustomerReviewsSection
         config={config}
         onOpenAddReview={onOpenAddReview}
       />
 
-      {/* Feedback & FAQs */}
+      {/* 9. Feedback & Frequently Asked Questions (Competitor Section 9) */}
       <FeedbackAndFaqSection config={config} />
 
-      {/* Branch Locator & Appointment Booking */}
+      {/* 10. Branch Locator & Appointment Booking (User Business Info Preserved) */}
       <ContactSection config={config} />
     </div>
   );
