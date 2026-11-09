@@ -61,7 +61,7 @@ export const FourStepsVisualSection: React.FC<FourStepsVisualSectionProps> = ({
           </div>
 
           <h2 className="font-serif text-2xl min-[360px]:text-3xl sm:text-4xl lg:text-5xl font-bold text-[#252525] tracking-tight leading-tight mb-2 sm:mb-3">
-            Sell Your Gold in 4 Easy Steps
+            Sell Your Gold in Easy Steps
           </h2>
 
           <p className="text-gray-600 text-sm sm:text-base lg:text-lg font-sans">
@@ -125,7 +125,7 @@ export const FourStepsVisualSection: React.FC<FourStepsVisualSectionProps> = ({
             onClick={onOpenSellModal}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#B5121B] hover:bg-[#910D15] text-white font-semibold text-xs min-[360px]:text-sm px-8 sm:px-9 py-3.5 rounded-sm transition-all shadow-xs cursor-pointer active:translate-y-0.5"
           >
-            <span>Start Your 4-Step Valuation</span>
+            <span>Start Your Easy Step Valuation</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

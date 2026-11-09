@@ -16,7 +16,6 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { CompanyConfig, OFFICIAL_ADDRESS } from '../data/config';
-import { BusinessStatistics } from '../components/BusinessStatistics';
 
 interface AboutPageProps {
   config: CompanyConfig;
@@ -149,10 +148,6 @@ export const AboutPage: React.FC<AboutPageProps> = ({ config, onOpenQuoteModal }
         </div>
       </section>
 
-      {/* Institutional Statistics Strip */}
-      <BusinessStatistics config={config} />
-
-      {/* 4 Core Pillars Grid */}
       <section className="py-16 sm:py-24 bg-[#FAF7F0] border-b border-[#E8CE83]/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mb-12">

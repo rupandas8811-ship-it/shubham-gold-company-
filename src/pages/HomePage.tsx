@@ -8,7 +8,6 @@ import { CompanyConfig } from '../data/config';
 import { HeroSection } from '../components/HeroSection';
 import { GoldValuationSection } from '../components/GoldValuationSection';
 import { AboutUsSection } from '../components/AboutUsSection';
-import { BusinessStatistics } from '../components/BusinessStatistics';
 import { WhyChooseUsSection } from '../components/WhyChooseUsSection';
 import { FourStepsVisualSection } from '../components/FourStepsVisualSection';
 import { HowToSellAccordionSection } from '../components/HowToSellAccordionSection';
@@ -52,7 +51,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         }}
       />
 
-      {/* 2. Gold Valuation & Instant Estimate (Competitor Section 1) */}
+      {/* 2. Gold Valuation & Instant Estimate ("We Buy Your Gold for Best Price" and "Get an instant estimate") */}
       <GoldValuationSection
         config={config}
         onOpenContact={() => {
@@ -61,33 +60,30 @@ export const HomePage: React.FC<HomePageProps> = ({
         }}
       />
 
-      {/* 3. Build Your Trust - Core of Operations (Competitor Section 2) */}
-      <AboutUsSection
-        config={config}
-        onOpenCheckValue={onOpenQuoteModal}
-      />
-
-      {/* 4. Number Speaks - Statistics (Competitor Section 3) */}
-      <BusinessStatistics config={config} />
-
-      {/* 5. Our Commitment - A Trusted Way To Sell Your Gold (Competitor Section 4) */}
-      <WhyChooseUsSection
-        config={config}
-        onOpenCheckValue={onOpenQuoteModal}
-      />
-
-      {/* 6. Sell Your Gold in 4 Easy Steps (Competitor Section 5) */}
-      <FourStepsVisualSection
-        onOpenSellModal={onOpenQuoteModal}
-      />
-
-      {/* 7. Detailed Steps: Sell Gold (7 Steps) & Release Gold Loan (8 Steps) (Competitor Section 6 & 7) */}
+      {/* 3. Detailed Steps Accordion: Sell Gold (7 Steps) & Release Gold Loan (8 Steps) */}
       <HowToSellAccordionSection
         config={config}
         onOpenSellModal={onOpenQuoteModal}
       />
 
-      {/* 8. Feedback & Frequently Asked Questions (Competitor Section 9) */}
+      {/* 4. Build Your Trust - Core of Operations */}
+      <AboutUsSection
+        config={config}
+        onOpenCheckValue={onOpenQuoteModal}
+      />
+
+      {/* 5. Our Commitment - A Trusted Way To Sell Your Gold */}
+      <WhyChooseUsSection
+        config={config}
+        onOpenCheckValue={onOpenQuoteModal}
+      />
+
+      {/* 7. Sell Your Gold in 4 Easy Steps */}
+      <FourStepsVisualSection
+        onOpenSellModal={onOpenQuoteModal}
+      />
+
+      {/* 8. Feedback & Frequently Asked Questions */}
       <FeedbackAndFaqSection config={config} />
 
       {/* 9. Branch Locator & Appointment Booking (User Business Info Preserved) */}
