@@ -34,8 +34,8 @@ export const FeedbackAndFaqSection: React.FC<FeedbackAndFaqSectionProps> = ({ co
       a: 'You can sell gold for cash using only two documents: a passport photo and an Aadhar card.'
     },
     {
-      q: 'What are your Branch Timings?',
-      a: 'Our branches welcome you from Monday to Saturday, operating from 10 am to 7 pm. Check out our website to find the nearest location.'
+      q: 'What are your Showroom Timings?',
+      a: 'Our Giri Nagar showroom in Bengaluru welcomes you from Monday to Saturday, operating from 10:00 AM to 7:00 PM.'
     },
     {
       q: 'Can I sell my gold which is without a hallmark?',

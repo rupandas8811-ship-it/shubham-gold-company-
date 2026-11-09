@@ -21,10 +21,10 @@ export const HowToSellAccordionSection: React.FC<HowToSellAccordionSectionProps>
 
   const sellSteps = [
     {
-      title: 'Find a Branch',
-      subtitle: '3+ Branches Across Karnataka',
+      title: 'Visit Our Showroom',
+      subtitle: 'Giri Nagar, Bengaluru',
       details: [
-        'Visit our flagship Giri Nagar showroom in Bengaluru or our regional branch network.',
+        'Visit our flagship showroom at Giri Nagar in Bengaluru for instant evaluation.',
         'Enjoy dedicated customer valuation desks, private appraisal cabins, and secure premises.'
       ]
     },
@@ -99,10 +99,10 @@ export const HowToSellAccordionSection: React.FC<HowToSellAccordionSectionProps>
       ]
     },
     {
-      title: 'Find a Branch',
-      subtitle: '3+ Branches Across Karnataka',
+      title: 'Visit Our Showroom',
+      subtitle: 'Giri Nagar, Bengaluru',
       details: [
-        'Walk into our Giri Nagar, Bengaluru branch or contact our gold loan release desk for immediate assistance.'
+        'Walk into our Giri Nagar, Bengaluru showroom or contact our gold loan release desk for immediate assistance.'
       ]
     },
     {
@@ -213,11 +213,11 @@ export const HowToSellAccordionSection: React.FC<HowToSellAccordionSectionProps>
                 </div>
               </div>
 
-              {/* Inset Highlights below the image matching user screenshot */}
+              {/* Inset Highlights below the image */}
               <div className="mt-4 pt-3 border-t border-gray-100 space-y-2 text-xs sm:text-sm">
                 <div className="flex items-center justify-between">
-                  <span className="font-normal text-gray-700">Branches:</span>
-                  <span className="text-[#B48316] font-semibold">3+ Branches Across Karnataka</span>
+                  <span className="font-normal text-gray-700">Showroom:</span>
+                  <span className="text-[#B48316] font-semibold">Giri Nagar, Bengaluru</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="font-normal text-gray-700">Valuation Cost:</span>

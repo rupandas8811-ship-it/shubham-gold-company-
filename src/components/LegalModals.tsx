@@ -55,7 +55,7 @@ export const LegalModals: React.FC<LegalModalsProps> = ({ type, onClose, config 
 
               <h4 className="font-bold text-[#B5121B] text-sm uppercase tracking-wide">1. Information We Collect</h4>
               <p>
-                When you visit our branches or interact with our website to request a gold valuation, we may collect personal identification information including your full name, mobile number, government identification proof (Aadhaar/PAN/Passport as mandated by KYC norms), and transaction details.
+                When you visit our showroom or interact with our website to request a gold valuation, we may collect personal identification information including your full name, mobile number, government identification proof (Aadhaar/PAN/Passport as mandated by KYC norms), and transaction details.
               </p>
 
               <h4 className="font-bold text-[#B5121B] text-sm uppercase tracking-wide">2. Purpose of Collection</h4>
@@ -76,7 +76,7 @@ export const LegalModals: React.FC<LegalModalsProps> = ({ type, onClose, config 
           ) : (
             <>
               <p>
-                Welcome to <strong>{config.companyName}</strong>. By accessing or using our services at any of our branches or via {config.domain}, you agree to comply with and be bound by the following Terms and Conditions.
+                Welcome to <strong>{config.companyName}</strong>. By accessing or using our services at our showroom or via {config.domain}, you agree to comply with and be bound by the following Terms and Conditions.
               </p>
 
               <h4 className="font-bold text-[#B5121B] text-sm uppercase tracking-wide">1. Purity Evaluation &amp; Testing</h4>

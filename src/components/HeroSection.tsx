@@ -98,11 +98,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <span>★</span>
             <span>★</span>
           </div>
-
-          {/* Reviews Subtext */}
-          <p className="text-white/95 font-sans text-xs min-[360px]:text-sm font-medium text-center mt-1.5 drop-shadow-xs">
-            5 Star Rating with 250+ Reviews on Google Map
-          </p>
         </div>
 
         {/* Action Buttons for Mobile: Responsive layout with no clipping */}
