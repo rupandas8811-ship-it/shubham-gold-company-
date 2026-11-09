@@ -7,7 +7,6 @@ import React, { useEffect } from 'react';
 import { CompanyConfig } from '../data/config';
 import { HeroSection } from '../components/HeroSection';
 import { GoldValuationSection } from '../components/GoldValuationSection';
-import { AboutUsSection } from '../components/AboutUsSection';
 import { WhyChooseUsSection } from '../components/WhyChooseUsSection';
 import { FourStepsVisualSection } from '../components/FourStepsVisualSection';
 import { HowToSellAccordionSection } from '../components/HowToSellAccordionSection';
@@ -66,11 +65,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         onOpenSellModal={onOpenQuoteModal}
       />
 
-      {/* 4. Build Your Trust - Core of Operations */}
-      <AboutUsSection
-        config={config}
-        onOpenCheckValue={onOpenQuoteModal}
-      />
+
 
       {/* 5. Our Commitment - A Trusted Way To Sell Your Gold */}
       <WhyChooseUsSection
